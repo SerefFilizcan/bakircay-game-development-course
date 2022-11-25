@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Ball
+  - Collectable
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,8 @@ public class Movement : MonoBehaviour
     public float Speed = 5f; 
     public float RotationSpeed = 10f;
 
+    //public Vector3 movementCache = Vector3.zero;
+
     // Update is called once per frame
     void Update()
     {
@@ -18,8 +20,7 @@ public class Movement : MonoBehaviour
 
         if (animCtrl == null)
             return;
-
-
+         
 
         Vector2 direction = joystick.Direction;
 
@@ -28,11 +29,12 @@ public class Movement : MonoBehaviour
         movementVector = movementVector * Time.deltaTime * Speed;
 
         transform.position += movementVector;
+        //movementCache += movementVector;
 
-        if (direction.magnitude != 0)
+        if (movementVector.magnitude != 0)
         {
             //transform.forward = movementVector;
-            transform.rotation =Quaternion.Lerp(transform.rotation,  Quaternion.LookRotation(movementVector, Vector3.up), Time.deltaTime * RotationSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation,  Quaternion.LookRotation(movementVector, Vector3.up), Time.deltaTime * RotationSpeed);
         }
 
 
@@ -42,7 +44,17 @@ public class Movement : MonoBehaviour
         animCtrl.SetBool("IsWalking", isWalking);
 
         animCtrl.SetFloat("SpeedValue", direction.magnitude);
-
-
+         
     }
+
+    //private void FixedUpdate()
+    //{
+    //    if (movementCache != Vector3.zero)
+    //    {
+    //        transform.position += movementCache;
+    //        movementCache = Vector3.zero;  
+    //    }
+        
+    //}
+
 }
