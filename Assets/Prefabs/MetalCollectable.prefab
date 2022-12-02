@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dc4047a82f99a48b7f4509fb8f141c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stashablePrefab: {fileID: 5470622273079144426, guid: da3e6a12adc6d384ea02af2be0d76ccc, type: 3}
+  stashablePrefab: {fileID: 823185121343289936, guid: da3e6a12adc6d384ea02af2be0d76ccc, type: 3}
 --- !u!1001 &8003336521466345707
 PrefabInstance:
   m_ObjectHideFlags: 0
