@@ -6,21 +6,11 @@ using UnityEngine;
 
 public class UnlockArea : MonoBehaviour
 {
-    private const string UNLOCK_PLAYERPREF_KEY = "UNLOCK_PLAYERPREF_KEY:";
-    public string UnlockableName;
+    public UnlockData unlockableData;
     public TextMeshPro NameText;
     public TextMeshPro PriceText;
     public List<GameObject> ObjectsToUnlock = new List<GameObject>();
- 
-    public int price = 20;
-
-    public int RemainingPrice => price - CollectedPrice;
-
-    public int CollectedPrice
-    {
-        get => PlayerPrefs.GetInt(UNLOCK_PLAYERPREF_KEY + UnlockableName, 0);
-        set => PlayerPrefs.SetInt(UNLOCK_PLAYERPREF_KEY + UnlockableName, value); 
-    }
+    
 
     private void OnEnable()
     {
@@ -32,30 +22,30 @@ public class UnlockArea : MonoBehaviour
     { 
         ObjectsToUnlock.ForEach((x) => x.SetActive(false));
         //ObjectToUnlock.SetActive(false);
-        NameText.text = UnlockableName;
-        PriceText.text = RemainingPrice.ToString();  
+        NameText.text = "UNLOCK " + unlockableData.unlockableName.ToUpper();
+        PriceText.text = unlockableData.RemainingPrice.ToString();  
     }
 
     public void Pay(Stashable stashable)
     {
-        if (RemainingPrice <= 0)
+        if (unlockableData.RemainingPrice <= 0)
             return;
 
-        CollectedPrice++;
+        unlockableData.CollectedPrice++;
         stashable.PayStashable(transform, PaymentCompleted);
          
     }
 
     private void PaymentCompleted()
     {
-        PriceText.text = RemainingPrice.ToString();
+        PriceText.text = unlockableData.RemainingPrice.ToString();
 
         CheckUnlocked();
     }
 
     private void CheckUnlocked()
     {
-        if (RemainingPrice <= 0)
+        if (unlockableData.RemainingPrice <= 0)
         {
             ObjectsToUnlock.ForEach((x) =>
             {

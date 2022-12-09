@@ -8,7 +8,7 @@ public class Payer : MonoBehaviour
 {
     private Stash _stash;
     private float nextTimeToPay = 0;
-    private float paymentDelay = 0.4f;
+    private float paymentDelay = 0.1f;
     private void Awake()
     {
         _stash = GetComponent<Stash>();
@@ -50,7 +50,7 @@ public class Payer : MonoBehaviour
 
     private void StartPayment(UnlockArea unlockable)
     {
-        if (unlockable.RemainingPrice <= 0)
+        if (unlockable.unlockableData.RemainingPrice <= 0)
             return;
 
         var stashable = _stash.RemoveStash();
